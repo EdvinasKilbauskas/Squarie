@@ -1,0 +1,28 @@
+precision lowp float;
+
+uniform sampler2D texture;
+
+varying vec4 outColor;
+varying vec2 outTexCoords;
+varying vec3 outNormal;
+
+float offset[3] = float[](0.0, 1.3846153846, 3.2307692308 );
+float weight[3] = float[](0.2270270270, 0.3162162162, 0.0702702703
+
+vec4 finalColor = vec4();
+
+void main()
+{
+   // gl_FragColor = texture2D(texture, outTexCoords) * outColor;
+
+    finalColor = texture2D( texture, vec2(gl_FragCoord)/512.0 ) * weight[0];
+
+    for (int i=1; i<3; i++){
+        finalColor += texture2D( texture, ( vec2(gl_FragCoord) + vec2(0.0, offset[i]) )/512.0 ) * weight[i];
+        finalColor += texture2D( texture, ( vec2(gl_FragCoord) - vec2(0.0, offset[i]) )/512.0 ) * weight[i];
+    }
+
+
+    gl_FragColor = finalColor;
+}
+

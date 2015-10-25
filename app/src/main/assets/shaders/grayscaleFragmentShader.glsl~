@@ -1,0 +1,17 @@
+precision lowp float;
+
+uniform sampler2D texture;
+
+varying vec4 outColor;
+varying vec2 outTexCoords;
+varying vec3 outNormal;
+
+void main()
+{
+    vec4 color = texture2D(texture,outTexCoords);
+    float grayScale = (color.x + color.y + color.z)/3.0;
+
+    vec4 grayScaleColor = vec4(grayScale,grayScale,grayScale,1.0);
+
+    gl_FragColor = grayScaleColor;
+}

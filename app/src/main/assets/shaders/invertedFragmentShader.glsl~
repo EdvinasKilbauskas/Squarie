@@ -1,0 +1,16 @@
+precision highp float;
+varying vec2 textureCoords;
+varying vec3 random;
+uniform sampler2D sTexture;
+
+
+void main()
+{
+	vec4 fragColor = texture2D(sTexture, textureCoords);
+	float average = (fragColor.x + fragColor.y + fragColor.z)/3.0;
+	//vec4 newColor = vec4(1.0 - fragColor.x, 1.0 - fragColor.y, 1.0 - fragColor.z, fragColor.w);
+	vec4 newColor = vec4(average,average,average, fragColor.w);
+
+	gl_FragColor = newColor;
+
+}
